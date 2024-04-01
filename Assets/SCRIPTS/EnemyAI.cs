@@ -67,7 +67,7 @@ public class EnemyAI : MonoBehaviour
 
             case EnemyState.Chase:
                 SwitchState(2);
-                if (distanceTotarget <= 2)
+                if (distanceTotarget <= 1.3f)
                 {
                     
                     enemyState = EnemyState.Attack;
@@ -81,14 +81,12 @@ public class EnemyAI : MonoBehaviour
 
             case EnemyState.Attack:
                 SwitchState(3);
-                if (distanceTotarget > 2 && distanceTotarget >= 15)
+                if (distanceTotarget > 1.4f)
                 {
                     enemyState = EnemyState.Chase;
                 }
-                else if (distanceTotarget > 15)
-                {
-                    enemyState = EnemyState.Idle;
-                }
+                ai.SetDestination(transform.position);
+                
                 break;
 
             default:
@@ -107,7 +105,7 @@ public class EnemyAI : MonoBehaviour
 
     public IEnumerator SwitchToPatrol()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         enemyState = EnemyState.Patrol;
         idleToPatrol = null;
     }
